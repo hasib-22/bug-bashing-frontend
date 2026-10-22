@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { registerUser } from "../../services/auth.api";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 export default function Register() {
     const navigate = useNavigate();
@@ -30,9 +31,11 @@ export default function Register() {
             }
 
             await registerUser(payload);
+            toast.success("Account creation successful, please login")
 
             navigate("/login");
         } catch (err) {
+            toast.error(err.response?.data?.message || "Register failed")
             setError(err.response?.data?.message || "Register failed");
         } finally {
             setLoading(false);

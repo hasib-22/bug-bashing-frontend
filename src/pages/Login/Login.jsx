@@ -3,6 +3,7 @@ import { loginUser } from "../../services/auth.api";
 import { saveToken } from "../../utils/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { Mail, Lock, Eye, EyeOff, LogIn, Sparkles, ShieldCheck, UserCheck } from "lucide-react";
+import { toast } from "sonner";
 
 export default function Login() {
     const navigate = useNavigate();
@@ -26,11 +27,13 @@ export default function Login() {
             setError(null);
 
             const res = await loginUser(form);
+            toast.success("Login successful")
             saveToken(res.data.token);
 
             navigate("/");
             window.location.reload();
         } catch (err) {
+            toast.error(err.response?.data?.message || "Internal server error")
             setError(err.response?.data?.message || "Login failed. Please check your credentials.");
         } finally {
             setLoading(false);
