@@ -20,7 +20,7 @@ export const fetchMyEnrollments = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const res = await getMyEnrollments();
-            return res.data;
+            return res;
         } catch (err) {
             return rejectWithValue(
                 err.response?.data?.message || "Failed to load enrollments"

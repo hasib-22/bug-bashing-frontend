@@ -8,7 +8,7 @@ import { getCourseById } from "../../services/courses.api";
 
 export default function StudentDashboard() {
     const dispatch = useDispatch();
-    const { enrollments, loading, error } = useSelector((state) => state.enrollment);
+    const { enrollments = [], loading, error } = useSelector((state) => state.enrollment);
     const { currentCourse } = useSelector((state) => state.courses);
 
     const [expandedCourse, setExpandedCourse] = useState(null);
@@ -198,7 +198,7 @@ export default function StudentDashboard() {
                                     {/* Course Header */}
                                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                                         <div className="flex-1 min-w-0">
-                                            <h2 className="card-title text-lg sm:text-xl break-words">
+                                            <h2 className="card-title text-lg sm:text-xl wrap-break-word">
                                                 {enrollment.course?.title}
                                             </h2>
                                             <p className="text-xs sm:text-sm text-base-content/70 mt-1">
@@ -258,7 +258,7 @@ export default function StudentDashboard() {
                                             </div>
                                             <div className="text-right">
                                                 <p className="text-2xl sm:text-3xl font-bold text-primary">
-                                                    {Math.round((enrollment.progress?.completedLessons?.length / (stats?.courseData?.syllabus?.reduce((acc, m) => acc + (m.lessons?.length || 0), 0))) * 100)}%
+                                                    {Math.round(enrollment.progress?.percent ?? 0)}%
                                                 </p>
                                             </div>
                                         </div>
@@ -364,7 +364,7 @@ export default function StudentDashboard() {
                                                     {/* Quiz Marks */}
                                                     {stats.quizStats?.submissions && stats.quizStats.submissions.length > 0 ? (
                                                         <div className="card bg-base-200">
-                                                            <div className="card-body p-3 sm:p-4 sm:p-6">
+                                                            <div className="card-body p-3 sm:p-6">
                                                                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4">
                                                                     <h3 className="card-title text-base sm:text-lg">📝 Quiz Marks</h3>
                                                                     <span className="badge badge-primary badge-sm sm:badge-lg">
@@ -382,7 +382,7 @@ export default function StudentDashboard() {
                                                                         return (
                                                                             <div key={quiz._id || idx} className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0 p-4 bg-base-100 rounded-lg shadow-sm hover:shadow-md transition">
                                                                                 <div className="flex-1 min-w-0">
-                                                                                    <p className="font-semibold text-sm sm:text-base break-words">{lessonTitle}</p>
+                                                                                    <p className="font-semibold text-sm sm:text-base wrap-break-word">{lessonTitle}</p>
                                                                                     <p className="text-xs sm:text-sm text-base-content/70 mt-1">
                                                                                         {quiz.score} out of {quiz.total} questions correct
                                                                                     </p>
@@ -415,7 +415,7 @@ export default function StudentDashboard() {
                                                     {/* Assignment Marks */}
                                                     {stats.assignmentStats?.submissions && stats.assignmentStats.submissions.length > 0 && (
                                                         <div className="card bg-base-200">
-                                                            <div className="card-body p-3 sm:p-4 sm:p-6">
+                                                            <div className="card-body p-3 sm:p-6">
                                                                 <h3 className="card-title text-base sm:text-lg mb-3 sm:mb-4">📄 Assignment Marks</h3>
                                                                 <div className="space-y-3">
                                                                     {stats.assignmentStats.submissions.map((assignment, idx) => {
@@ -429,7 +429,7 @@ export default function StudentDashboard() {
                                                                                 <div className="card-body p-3 sm:p-4">
                                                                                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0 mb-2">
                                                                                         <div className="flex-1 min-w-0">
-                                                                                            <p className="font-semibold text-sm sm:text-base break-words">{lessonTitle}</p>
+                                                                                            <p className="font-semibold text-sm sm:text-base wrap-break-word">{lessonTitle}</p>
                                                                                             {submittedDate && (
                                                                                                 <p className="text-xs sm:text-sm text-base-content/70 mt-1">
                                                                                                     Submitted: {submittedDate.toLocaleDateString()}

@@ -42,6 +42,7 @@ export default function CourseDetails() {
             try {
                 await dispatch(getMeAsync()).unwrap();
             } catch (err) {
+                console.log(err)
                 // ignore, will redirect to login below
             }
         }
@@ -90,7 +91,7 @@ export default function CourseDetails() {
         <div className="space-y-4 sm:space-y-6">
             <div className="card bg-base-100 border border-base-300 shadow-md">
                 <div className="card-body p-4 sm:p-6">
-                    <h1 className="page-heading break-words">{course.title}</h1>
+                    <h1 className="page-heading wrap-break-word">{course.title}</h1>
 
                     <div className="flex flex-wrap gap-2 mt-3">
                         {course.tags?.map((tag, i) => (
@@ -108,7 +109,7 @@ export default function CourseDetails() {
                     </p>
 
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mt-4 sm:mt-6">
-                        <p className="text-2xl sm:text-3xl font-bold" style={{ 
+                        <p className="text-2xl sm:text-3xl font-bold" style={{
                             background: 'linear-gradient(135deg, #78A083, #50727B)',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',

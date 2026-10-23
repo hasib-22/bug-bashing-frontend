@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
     LayoutDashboard,
     BookOpen,
@@ -14,7 +14,6 @@ import {
 
 export default function AdminSidebar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const location = useLocation();
 
     const Item = ({ to, label, Icon, end = true, onClick, showLabel = true }) => {
         const linkClass = ({ isActive: navIsActive }) => {
@@ -35,7 +34,7 @@ export default function AdminSidebar() {
                 onClick={onClick}
                 className={linkClass}
             >
-                <Icon className="w-5 h-5 shrink-0" />
+                {Icon && <Icon className="w-5 h-5 shrink-0" />}
                 {showLabel && <span className="text-sm sm:text-base">{label}</span>}
             </NavLink>
         );
